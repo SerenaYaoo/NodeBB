@@ -7,13 +7,14 @@ import * as pagination from '../../pagination';
 interface RegularFilter {
     name: string;
     filter: string;
-    selected?: boolean;
+    selected?: boolean; // indicating whether a property is currently active or selected 
 }
 
 interface SeparatorFilter {
     separator: boolean;
 }
 
+// extend default 'Request' type; now including uid
 interface ExtendedRequest extends Request {
     uid?: string | number;
 }
