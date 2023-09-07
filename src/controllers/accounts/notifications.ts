@@ -7,7 +7,7 @@ import * as pagination from '../../pagination';
 interface RegularFilter {
     name: string;
     filter: string;
-    selected?: boolean; // indicating whether a property is currently active or selected 
+    selected?: boolean; // indicating whether a property is currently active or selected
 }
 
 interface SeparatorFilter {
@@ -90,7 +90,8 @@ const notificationsController: NotificationsController = {
             return;
         }
 
-        let notifications = await user.notifications.getNotifications(nids, req.uid);
+        // defining notification as string
+        let notifications: string[] = await user.notifications.getNotifications(nids, req.uid);
 
         const pageCount = Math.max(1, Math.ceil(notifications.length / itemsPerPage));
         notifications = notifications.slice(start, stop + 1);
