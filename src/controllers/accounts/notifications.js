@@ -58,6 +58,7 @@ const notificationsController = {
             const itemsPerPage = 20;
             const start = (page - 1) * itemsPerPage;
             const stop = start + itemsPerPage - 1;
+            // added expected type as boolean
             const [filters, isPrivileged] = yield Promise.all([
                 plugins.hooks.fire('filter:notifications.addFilters', {
                     regularFilters,
@@ -82,6 +83,8 @@ const notificationsController = {
             }
             let nids; // here making assumption that notification ids are in integer type
             if ('filter' in selectedFilter) {
+                // The next line calls a function in a module that has not been updated to TS yet
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
                 nids = yield user.notifications.getAll(req.uid, selectedFilter.filter);
             }
             else {

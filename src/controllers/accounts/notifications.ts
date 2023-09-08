@@ -84,9 +84,11 @@ const notificationsController: NotificationsController = {
         }
 
         let nids: number[]; // here making assumption that notification ids are in integer type
-            
+
 
         if ('filter' in selectedFilter) {
+            // The next line calls a function in a module that has not been updated to TS yet
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
             nids = await user.notifications.getAll(req.uid, selectedFilter.filter);
         } else {
             return;
