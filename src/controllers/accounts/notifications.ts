@@ -55,13 +55,14 @@ const notificationsController: NotificationsController = {
             moderatorFilters: Filter[];
         }
 
-        const [filters, isPrivileged] = await Promise.all([
+        // added expected type as boolean
+        const [filters, isPrivileged] : [FiltersResponse, boolean] = await Promise.all([
             plugins.hooks.fire('filter:notifications.addFilters', {
                 regularFilters,
                 moderatorFilters,
                 uid: req.uid,
             }) as Promise<FiltersResponse>,
-            user.isPrivileged(req.uid),
+            user.isPrivileged(req.uid) as Promise<boolean>,
         ]);
 
 
@@ -83,6 +84,7 @@ const notificationsController: NotificationsController = {
         }
 
         let nids: number[]; // here making assumption that notification ids are in integer type
+            
 
         if ('filter' in selectedFilter) {
             nids = await user.notifications.getAll(req.uid, selectedFilter.filter);
